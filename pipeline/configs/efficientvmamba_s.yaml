@@ -1,0 +1,12 @@
+# Mamba — tier ligero (~11M). Escaneo atrous (ES2D) + rama convolucional.
+# Requiere el repo TerryPei/EfficientVMamba y su checkpoint ImageNet oficial.
+model:
+  name: efficientvmamba_s
+  pretrained_ckpt: ~/tesis_v3/checkpoints/efficientvmamba_small.pth
+
+optimizer:
+  lr: 3.0e-4
+  weight_decay: 0.05
+
+train:
+  batch_size: 64

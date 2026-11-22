@@ -1,0 +1,11 @@
+# CNN baseline — tier ligero (~5M). Hereda de _base.yaml.
+# timm descarga el preentrenado ImageNet automáticamente.
+model:
+  name: efficientnet_b0
+
+optimizer:
+  lr: 3.0e-4
+  weight_decay: 0.05
+
+train:
+  batch_size: 128

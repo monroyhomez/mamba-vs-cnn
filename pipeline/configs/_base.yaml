@@ -1,0 +1,59 @@
+# Protocolo común — IDÉNTICO para los 7 modelos (paridad por construcción).
+# configs/<modelo>.yaml solo debería sobreescribir lr / weight_decay / batch_size por tier.
+# NO sobreescribir augmentation, métrica de checkpoint ni semilla: eso invalidaría la comparación.
+
+seed: 42
+deterministic: true        # cudnn determinista; los kernels Mamba no garantizan determinismo total
+
+input_size: 224
+pretrained: true           # ImageNet para TODOS los modelos, sin excepción
+num_workers: 8
+
+optimizer:
+  name: adamw
+  lr: 3.0e-4
+  weight_decay: 0.05
+  betas: [0.9, 0.999]
+
+scheduler:
+  name: cosine
+  warmup_epochs: 5
+  min_lr: 1.0e-6
+
+train:
+  epochs: 50
+  batch_size: 64           # 32 GB de la Ada permiten 64 a 224²; subir si cabe
+  grad_accum: 1
+  amp_dtype: bfloat16
+  grad_clip: 1.0
+  label_smoothing: 0.1
+  ema: true
+  ema_decay: 0.999          # apropiado para fine-tuning corto (0.9998 era valor de entreno-desde-cero)
+  early_stop_patience: 12
+
+# Augmentation común. Por-dataset se ajustan dos cosas (ver overrides de dataset abajo):
+#   - mixup/cutmix: ON en Imagenette, OFF en ISIC (binario, métricas clínicas limpias)
+#   - color_jitter: suave en ISIC (el color es información clínica)
+augment:
+  randaugment: true
+  random_erasing: 0.25
+  color_jitter: 0.2
+  mixup: 0.0
+  cutmix: 0.0
+
+# Benchmark de eficiencia (opcional, por modelo). Solo lo usa pipeline/benchmark.py.
+#   flops_paper_g_at_224: FLOPs oficiales del paper a 224², para la columna flops_manual_G
+#   (fvcore NO cuenta el kernel selective-scan de Mamba → sub-cuenta ~2x). CNN no lo necesita.
+# benchmark:
+#   flops_paper_g_at_224: <G>
+
+# Overrides automáticos por dataset (los aplica train.py según --dataset)
+dataset_overrides:
+  imagenette:
+    monitor: val_top1
+    num_classes: 10
+    augment: { mixup: 0.2, cutmix: 1.0, color_jitter: 0.4 }
+  isic:
+    monitor: val_balanced_acc     # dataset balanceado; se reportan también MCC/AUROC/recall/specificity/F1
+    num_classes: 2
+    augment: { mixup: 0.0, cutmix: 0.0, color_jitter: 0.1 }

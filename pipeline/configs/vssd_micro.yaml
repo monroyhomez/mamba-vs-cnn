@@ -1,0 +1,12 @@
+# Mamba-2 — tier ligero (~14M). State Space Duality (no causal).
+# Requiere el repo YuHengsss/VSSD y su checkpoint ImageNet oficial.
+model:
+  name: vssd_micro
+  pretrained_ckpt: ~/tesis_v3/checkpoints/vssd_micro.pth
+
+optimizer:
+  lr: 3.0e-4
+  weight_decay: 0.05
+
+train:
+  batch_size: 64

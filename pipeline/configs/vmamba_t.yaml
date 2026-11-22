@@ -1,0 +1,20 @@
+# Ejemplo de override por modelo. Hereda todo de _base.yaml.
+# Crear uno análogo por modelo: resnet18, resnet50, efficientnet_b0,
+# efficientvmamba_s, vssd_micro, vim_s.
+model:
+  name: vmamba_t            # clave registrada en pipeline/models/registry.py
+  # checkpoint ImageNet oficial (ruta local en el remoto, ver ENVIRONMENT.md)
+  pretrained_ckpt: ~/tesis_v3/checkpoints/vmamba_tiny_e292.pth
+
+# Solo se permite ajustar el tier de optimización (sweep ligero e igual para todos).
+optimizer:
+  lr: 3.0e-4
+  weight_decay: 0.05
+
+train:
+  batch_size: 64
+
+# Benchmark de eficiencia: FLOPs oficiales del paper a 224² (fvcore NO cuenta el
+# selective-scan y sub-cuenta ~2x). Da la columna flops_manual_G en el CSV.
+benchmark:
+  flops_paper_g_at_224: 8.7   # VMamba-T (variante 29.5M), valor del paper

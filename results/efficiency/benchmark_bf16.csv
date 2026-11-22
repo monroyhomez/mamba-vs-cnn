@@ -1,0 +1,96 @@
+model,resolution,batch_size,precision,params_M,repeats,flops_fvcore_G,flops_manual_G,flops_source,vram_train_alloc_MB_mean,vram_train_alloc_MB_std,vram_train_reserved_MB_mean,vram_infer_alloc_MB_mean,vram_infer_reserved_MB_mean,throughput_fps_mean,throughput_fps_std,latency_bs1_ms_mean,latency_bs1_ms_std,vram_train_scaling_exp,status
+resnet18,224,16,bfloat16,11.69,3,1.827,,fvcore/img (SSM custom ops NO contados — verificar vs paper),306.6,19.5,398.7,148.9,182.0,12869.46,64.96,1.024,0.02,1.743,ok
+resnet18,384,16,bfloat16,11.69,3,5.345,,fvcore/img (SSM custom ops NO contados — verificar vs paper),693.4,43.5,1006.0,273.5,360.0,4344.83,2.34,0.95,0.011,1.743,ok
+resnet18,512,16,bfloat16,11.69,3,9.502,,fvcore/img (SSM custom ops NO contados — verificar vs paper),1149.6,75.2,1647.3,420.0,558.0,2377.63,0.49,0.971,0.006,1.743,ok
+resnet18,768,16,bfloat16,11.69,3,21.378,,fvcore/img (SSM custom ops NO contados — verificar vs paper),2457.2,161.5,3360.0,839.2,1128.0,846.04,0.35,1.047,0.003,1.743,ok
+resnet18,1024,16,bfloat16,11.69,3,38.005,,fvcore/img (SSM custom ops NO contados — verificar vs paper),4291.2,282.7,5952.0,1427.2,1926.0,441.78,0.83,1.679,0.003,1.743,ok
+resnet50,224,16,bfloat16,25.557,3,4.145,,fvcore/img (SSM custom ops NO contados — verificar vs paper),889.5,32.3,988.7,263.0,288.0,4635.67,32.64,2.373,0.093,1.841,ok
+resnet50,384,16,bfloat16,25.557,3,12.079,,fvcore/img (SSM custom ops NO contados — verificar vs paper),2201.4,29.3,2544.0,428.6,500.0,1272.96,0.62,2.231,0.01,1.841,ok
+resnet50,512,16,bfloat16,25.557,3,21.472,,fvcore/img (SSM custom ops NO contados — verificar vs paper),3752.8,22.2,4250.7,631.5,754.0,638.25,0.23,2.298,0.039,1.841,ok
+resnet50,768,16,bfloat16,25.557,3,48.309,,fvcore/img (SSM custom ops NO contados — verificar vs paper),8215.2,19.6,9066.0,1210.7,1484.0,246.28,0.26,2.391,0.01,1.841,ok
+resnet50,1024,16,bfloat16,25.557,3,85.881,,fvcore/img (SSM custom ops NO contados — verificar vs paper),14471.1,47.2,16833.3,2021.3,2506.0,132.3,0.1,4.485,0.082,1.841,ok
+efficientnet_b0,224,16,bfloat16,5.289,3,0.42,,fvcore/img (SSM custom ops NO contados — verificar vs paper),760.2,25.5,812.7,148.1,204.0,5118.95,109.27,3.003,0.062,1.938,ok
+efficientnet_b0,384,16,bfloat16,5.289,3,1.17,,fvcore/img (SSM custom ops NO contados — verificar vs paper),2080.6,6.6,2280.7,344.7,450.0,2489.08,1.46,2.917,0.012,1.938,ok
+efficientnet_b0,512,16,bfloat16,5.289,3,2.078,,fvcore/img (SSM custom ops NO contados — verificar vs paper),3673.3,7.5,3955.3,574.7,730.0,1272.4,1.77,3.006,0.01,1.938,ok
+efficientnet_b0,768,16,bfloat16,5.289,3,4.674,,fvcore/img (SSM custom ops NO contados — verificar vs paper),8138.7,1.2,8732.7,1234.7,1540.0,489.59,0.26,2.968,0.086,1.938,ok
+efficientnet_b0,1024,16,bfloat16,5.289,3,8.308,,fvcore/img (SSM custom ops NO contados — verificar vs paper),14375.6,3.0,15271.3,2158.7,2674.0,254.73,0.61,2.95,0.052,1.938,ok
+vim_s,224,16,bfloat16,26.001,3,,,"fvcore falló: at 52:11:
+    X += row * stride_x_row
+    Y += row * stride_y_row
+    if HAS_RESIDUAL:
+        RESIDUAL += row * stride_res_row
+    if STORE_RESIDUAL_OUT:
+        RESIDUAL_OUT += row * stride_res_out_row
+    if HAS_X1:
+        X1 += row * stride_x1_row
+    if HAS_W1:
+        Y1 += row * stride_y1_row
+    # Compute mean and variance
+    cols = tl.arange(0, BLOCK_N)
+           ^",4169.3,69.5,4194.7,406.9,422.7,374.81,0.5,12.59,0.191,1.945,ok
+vim_s,384,16,bfloat16,26.001,3,,,"fvcore falló: at 52:11:
+    X += row * stride_x_row
+    Y += row * stride_y_row
+    if HAS_RESIDUAL:
+        RESIDUAL += row * stride_res_row
+    if STORE_RESIDUAL_OUT:
+        RESIDUAL_OUT += row * stride_res_out_row
+    if HAS_X1:
+        X1 += row * stride_x1_row
+    if HAS_W1:
+        Y1 += row * stride_y1_row
+    # Compute mean and variance
+    cols = tl.arange(0, BLOCK_N)
+           ^",11738.2,1.1,11836.7,875.3,914.0,94.44,1.11,12.798,0.092,1.945,ok
+vim_s,512,16,bfloat16,26.001,3,,,"fvcore falló: at 52:11:
+    X += row * stride_x_row
+    Y += row * stride_y_row
+    if HAS_RESIDUAL:
+        RESIDUAL += row * stride_res_row
+    if STORE_RESIDUAL_OUT:
+        RESIDUAL_OUT += row * stride_res_out_row
+    if HAS_X1:
+        X1 += row * stride_x1_row
+    if HAS_W1:
+        Y1 += row * stride_y1_row
+    # Compute mean and variance
+    cols = tl.arange(0, BLOCK_N)
+           ^",20869.0,1.8,21129.3,1443.0,1512.0,69.69,0.03,13.702,0.039,1.945,ok
+vim_s,768,16,bfloat16,26.001,3,,,"fvcore falló: at 52:11:
+    X += row * stride_x_row
+    Y += row * stride_y_row
+    if HAS_RESIDUAL:
+        RESIDUAL += row * stride_res_row
+    if STORE_RESIDUAL_OUT:
+        RESIDUAL_OUT += row * stride_res_out_row
+    if HAS_X1:
+        X1 += row * stride_x1_row
+    if HAS_W1:
+        Y1 += row * stride_y1_row
+    # Compute mean and variance
+    cols = tl.arange(0, BLOCK_N)
+           ^",nan,nan,nan,nan,nan,nan,nan,nan,nan,1.945,OOM
+vim_s,1024,16,bfloat16,26.001,3,,,"fvcore falló: at 52:11:
+    X += row * stride_x_row
+    Y += row * stride_y_row
+    if HAS_RESIDUAL:
+        RESIDUAL += row * stride_res_row
+    if STORE_RESIDUAL_OUT:
+        RESIDUAL_OUT += row * stride_res_out_row
+    if HAS_X1:
+        X1 += row * stride_x1_row
+    if HAS_W1:
+        Y1 += row * stride_y1_row
+    # Compute mean and variance
+    cols = tl.arange(0, BLOCK_N)
+           ^",nan,nan,nan,nan,nan,nan,nan,nan,nan,1.945,OOM
+efficientvmamba_s,224,16,bfloat16,10.766,3,1.176,1.3,"paper@224=1.3G, escalado (res/224)^2",1117.9,21.6,1216.7,306.2,366.0,2526.9,2.95,4.892,0.103,1.946,ok
+efficientvmamba_s,384,16,bfloat16,10.766,3,3.425,3.82,"paper@224=1.3G, escalado (res/224)^2",3095.5,38.0,3127.3,748.1,876.0,736.99,0.68,5.142,0.362,1.946,ok
+efficientvmamba_s,512,16,bfloat16,10.766,3,6.086,6.792,"paper@224=1.3G, escalado (res/224)^2",5425.0,57.9,5573.3,1266.6,1494.0,406.65,0.08,4.938,0.115,1.946,ok
+efficientvmamba_s,768,16,bfloat16,10.766,3,13.689,15.282,"paper@224=1.3G, escalado (res/224)^2",12093.9,115.9,12388.0,2752.7,3224.0,152.0,0.07,4.985,0.034,1.946,ok
+efficientvmamba_s,1024,16,bfloat16,10.766,3,24.334,27.167,"paper@224=1.3G, escalado (res/224)^2",21475.1,150.4,21909.3,4830.6,5646.0,84.1,0.04,7.985,0.066,1.946,ok
+vmamba_t,224,16,bfloat16,29.488,3,4.842,8.7,"paper@224=8.7G, escalado (res/224)^2",1689.7,13.7,1767.3,415.5,442.0,1587.2,1.96,8.516,0.138,1.925,ok
+vmamba_t,384,16,bfloat16,29.488,3,14.228,25.567,"paper@224=8.7G, escalado (res/224)^2",4596.2,6.5,4630.0,958.0,1002.0,478.28,0.62,8.5,0.247,1.925,ok
+vmamba_t,512,16,bfloat16,29.488,3,25.295,45.453,"paper@224=8.7G, escalado (res/224)^2",8002.8,21.6,8060.7,1597.6,1662.0,252.32,0.29,8.528,0.05,1.925,ok
+vmamba_t,768,16,bfloat16,29.488,3,56.914,102.269,"paper@224=8.7G, escalado (res/224)^2",17753.3,52.0,17817.3,3425.1,3722.0,100.93,0.37,8.393,0.081,1.925,ok
+vmamba_t,1024,16,bfloat16,29.488,3,,181.812,"paper@224=8.7G, escalado (res/224)^2",31394.6,100.5,31518.0,5983.6,6222.0,55.25,0.03,13.518,0.087,1.925,ok

@@ -1,0 +1,11 @@
+# CNN baseline — tier ligero (~11M). Hereda de _base.yaml.
+# timm descarga el preentrenado ImageNet automáticamente (no requiere pretrained_ckpt).
+model:
+  name: resnet18
+
+optimizer:
+  lr: 3.0e-4
+  weight_decay: 0.05
+
+train:
+  batch_size: 128       # modelo pequeño; la Ada de 32GB admite batch grande a 224²
